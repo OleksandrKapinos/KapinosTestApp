@@ -1,0 +1,57 @@
+<div class="wrapper">
+  <div class="table table--collapse">
+
+    <div *ngIf="isLoading" class="loader-overlay">
+      <div class="loader"></div>
+    </div>
+
+    <div class="table-row table-row--head">
+      <div class="table-cell id-cell column-heading">id</div>
+      <div class="table-cell name-cell column-heading">Name</div>
+      <div class="table-cell email-cell column-heading">Email</div>
+      <div class="table-cell phone-cell column-heading">Phone</div>
+      <div class="table-cell address-cell column-heading">Address</div>
+      <div class="table-cell btn-cell column-heading"></div>
+    </div>
+
+    <div class="table-row" *ngFor="let user of usersList">
+
+      <div class="table-cell id-cell">
+        <div class="table-cell--heading">id</div>
+        <div class="table-cell--content id-content">{{user.id}}</div>
+      </div>
+      <div class="table-cell name-cell">
+        <div class="table-cell--content name-content">{{user.name}}</div>
+      </div>
+      <div class="table-cell email-cell">
+        <div class="table-cell--heading">Email</div>
+        <div class="table-cell--content email-content">{{user.email}}</div>
+      </div>
+      <div class="table-cell phone-cell">
+        <div class="table-cell--heading">Phone</div>
+        <div class="table-cell--content phone-content">{{user.phone}}</div>
+      </div>
+      <div class="table-cell address-cell">
+        <div class="table-cell--heading">Address</div>
+        <div class="table-cell--content address-content">
+          <span>City: {{user.address.city}}</span>
+        </div>
+      </div>
+
+      <div class="table-cell btn-cell">
+        <div class="table-cell--heading"></div>
+        <div class="table-cell--content btn-content">
+          <button class="btn btn-primary" (click)="goToPosts(user.id)">Posts</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="error-message" *ngIf="isEmptyContainer">
+      <h2> Oops, something went wrong try again later :(</h2>
+    </div>
+
+  </div>
+</div>
+
+

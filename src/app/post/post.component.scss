@@ -1,0 +1,61 @@
+@import '../../variables.scss';
+
+.container {
+  margin-bottom: 64px;
+  position: relative;
+
+  &.comments-container {
+    min-height: 256px;
+  }
+
+  .post-box {
+    box-shadow: 0 0 40px $box-shadow;
+
+    .post-header {
+      background: $heading-color;
+      padding: 0 16px;
+      margin-bottom: 12px;
+      display: flex;
+      min-height: 80px;
+      h1 {
+        color: $white;
+      }
+    }
+
+    .post-body {
+      padding: 4px 16px;
+      min-height: 60px;
+    }
+
+    .btn-box {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 16px 16px 16px;
+      .btn-warning {
+        margin-left: 16px;
+      }
+    }
+  }
+
+  .comments-box {
+    box-shadow: 0 0 20px $box-shadow;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+
+    .author {
+      background: $heading-color;
+      margin-bottom: 16px;
+      padding: 0 16px;
+      min-height: 60px;
+      h4 {
+        color: $white;
+      }
+    }
+
+    .comment {
+      padding: 0 16px;
+      min-height: 34px;
+    }
+  }
+}

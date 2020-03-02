@@ -1,0 +1,65 @@
+﻿@import '../../variables.scss';
+
+app-modal {
+  display: none;
+
+  .modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    overflow: auto;
+
+    .modal-body {
+      position: absolute;
+      padding: 0 16px 16px 16px;
+      background: $white;
+      width: 300px;
+      left: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: -150px;
+
+      .modal-header {
+        padding: 16px;
+        margin: 0 -16px;
+        background-color: $heading-color;
+        h3 {
+          margin: 0;
+          color: $white;
+        }
+      }
+    }
+
+    .btn-box-mod {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 16px;
+    }
+
+    .send-status {
+      padding-top: 16px;
+      .btn {
+        margin-top: 16px;
+      }
+    }
+  }
+
+  .modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: $black;
+    opacity: 0.75;
+
+    z-index: 900;
+  }
+}
+
+body.modal-open {
+  overflow: hidden;
+}

@@ -1,0 +1,84 @@
+<div class="wrapper">
+  <div class="table table--collapse">
+
+    <div *ngIf="isLoading" class="loader-overlay">
+      <div class="loader"></div>
+    </div>
+
+
+    <div class="table-row table-row--head">
+      <div class="table-cell id-cell column-heading">id</div>
+      <div class="table-cell name-cell title-cell column-heading">Title</div>
+      <div class="table-cell btn-cell column-heading"></div>
+    </div>
+
+    <div class="table-row" *ngFor="let post of posts">
+
+      <div class="table-cell id-cell">
+        <div class="table-cell--heading">id</div>
+        <div class="table-cell--content id-content">{{post.id}}</div>
+      </div>
+
+      <div class="table-cell name-cell title-cell">
+        <div class="table-cell--content name-content">{{post.title}}</div>
+      </div>
+
+      <div class="table-cell btn-cell">
+        <div class="table-cell--heading"></div>
+        <div class="table-cell--content btn-content">
+          <button class="btn btn-primary" (click)="goToPost(post.id)">Details</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="error-message" *ngIf="isEmptyContainer">
+      <h2> Oops, something went wrong try again later :(</h2>
+    </div>
+
+  </div>
+  <button class="btn btn-primary" *ngIf="posts.length" (click)="openModal('add-post')">Add new</button>
+</div>
+
+<app-modal id="add-post">
+
+  <div class="modal-header">
+    <h3>Add a post.</h3>
+  </div>
+
+  <form *ngIf="!sendStatus" [formGroup]="postForm">
+
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input id="title" formControlName="title" type="text">
+      <span *ngIf="postForm.controls.title.invalid && postForm.controls.title.touched" class="invalid-error"> Min 7 symbols</span>
+    </div>
+
+    <div class="form-group">
+      <label for="postBody">Post</label>
+      <textarea id="postBody" formControlName="body" type="text"></textarea>
+      <span *ngIf="postForm.controls.body.invalid && postForm.controls.body.touched" class="invalid-error"> Min 14 symbols</span>
+      <span class="invalid-error"></span>
+    </div>
+
+    <div class="form-group btn-group">
+      <button [disabled]="postForm.invalid" (click)="submitPost()" class="btn btn-primary">
+        <span *ngIf="isSending" class="spinner"></span>
+        Add
+      </button>
+      <button class="btn btn-warning" (click)="closeModal('add-post');">Close</button>
+    </div>
+
+  </form>
+
+  <div *ngIf="sendStatus === 'success'" class="send-status">
+    The post has added successfully!!!
+    <button class="btn btn-warning" (click)="closeModal('add-post');">Close</button>
+  </div>
+
+  <div *ngIf="sendStatus === 'error'" class="send-status">
+    Something went wrong :(
+    <button class="btn btn-warning" (click)="closeModal('add-post');">Close</button>
+  </div>
+
+</app-modal>

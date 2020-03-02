@@ -1,0 +1,100 @@
+<div class="wrapper">
+  <div class="container">
+
+    <div *ngIf="isLoadingPost" class="loader-overlay">
+      <div class="loader"></div>
+    </div>
+
+    <div class="post-box">
+      <div class="post-header">
+        <h1>{{ postInfo.title }}</h1>
+      </div>
+      <div class="post-body">
+        <p>{{ postInfo.body }}</p>
+      </div>
+      <div class="btn-box">
+        <button (click)="openModal('edit-post')" class="btn btn-primary">Edit</button>
+        <button class="btn btn-warning" (click)="openModal('delete-post');">Delete</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container comments-container">
+
+    <div *ngIf="isLoadingComments" class="loader-overlay">
+      <div class="loader"></div>
+    </div>
+
+    <h2>Comments:</h2>
+
+    <div class="comments-box" *ngFor="let comment of postComments">
+      <div class="author">
+        <h4>{{ comment.email }}</h4>
+      </div>
+      <div class="comment">
+        <p>{{ comment.body }}</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<app-modal id="edit-post">
+
+  <div class="modal-header">
+    <h3>Edit the post.</h3>
+  </div>
+
+  <form *ngIf="!sendStatus" [formGroup]="editForm">
+
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input id="title" formControlName="title" type="text">
+      <span *ngIf="editForm.controls.title.invalid && editForm.controls.title.touched" class="invalid-error"> Min 7 symbols</span>
+    </div>
+
+    <div class="form-group">
+      <label for="postBody">Post</label>
+      <textarea id="postBody" formControlName="body" type="text"></textarea>
+      <span *ngIf="editForm.controls.body.invalid && editForm.controls.body.touched" class="invalid-error"> Min 14 symbols</span>
+      <span class="invalid-error"></span>
+    </div>
+
+    <div class="form-group btn-group">
+      <button [disabled]="editForm.invalid" (click)="submitPost()" class="btn btn-primary">
+        <span *ngIf="isSending" class="spinner"></span>
+        Edit
+      </button>
+      <button class="btn btn-warning" [disabled]="editForm.invalid" (click)="closeModal('edit-post');">Close</button>
+    </div>
+
+  </form>
+
+  <div *ngIf="sendStatus === 'success'" class="send-status">
+    The post has updated successfully!!!
+    <button class="btn btn-warning" (click)="closeModal('edit-post');">Close</button>
+  </div>
+
+  <div *ngIf="sendStatus === 'error'" class="send-status">
+    Something went wrong :(
+    <button class="btn btn-warning" (click)="closeModal('edit-post');">Close</button>
+  </div>
+
+</app-modal>
+
+<app-modal id="delete-post">
+
+  <div class="modal-header">
+    <h3>Delete the post?</h3>
+  </div>
+
+  <div class="btn-box-mod">
+    <button (click)="deletePost()" class="btn btn-primary">
+      <span *ngIf="isDeleting" class="spinner"></span>
+      Delete
+    </button>
+    <button class="btn btn-warning" (click)="closeModal('delete-post');">Close</button>
+  </div>
+
+</app-modal>
